@@ -9,7 +9,10 @@ const Checkout = () => {
   const {cartItems, cartTotal} = useContext(CartContext);
 
   return (
+<>
+    <CheckoutTitle>Your Cart</CheckoutTitle>
     <Container>
+      
       <CheckoutHeader>
       <HeaderTitle>Product</HeaderTitle>
       <HeaderTitle>Description</HeaderTitle>
@@ -24,8 +27,13 @@ const Checkout = () => {
       <Total>Total: $ {cartTotal}</Total>
       </CheckoutItemsContainer>
     </Container>
+    </>
   )
 }
+
+const CheckoutTitle = styled.h1`
+  text-align: center;
+`
 
 const Total = styled.span`
   align-self: flex-end;
@@ -47,10 +55,10 @@ const HeaderTitle = styled.span`
 `
 
 const CheckoutHeader = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   font-size: 25px;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 20px 0px;
 `
 
@@ -60,9 +68,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: pink;
+  background-color: white;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 25px;
+  margin-top: 5%;
   
 `
 

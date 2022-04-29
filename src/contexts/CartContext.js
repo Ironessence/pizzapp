@@ -16,6 +16,23 @@ const addCartItem = (cartItems, productToAdd) => {
 
 //-------------------------------------------
 
+//REMOVE FROM CART FUNCTION ---------------------
+const removeCartItem = (cartItems, cartItemToRemove) => {
+    
+    const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToRemove.id);
+    if(existingCartItem.quantity === 1) {
+        return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+
+    }
+    return cartItems.map((cartItem) => cartItem.id === cartItemToRemove.id 
+        ? 
+        {...cartItem, quantity: cartItem.quantity - 1}
+        : cartItem
+        )
+}
+
+//-------------------------------------------
+
 //CLEAR ITEM FROM CART FUNCTION --------------------
 const clearCartItem = (cartItems, cartItemToClear) => 
 cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
@@ -33,6 +50,7 @@ export const CartContext = createContext({
     clearItemFromCart: () => {},
     cartCount: 0,
     cartTotal: 0,
+    remoteItemFromCart: () => {},
 })
 //-------------------------------------------
 
@@ -65,7 +83,15 @@ const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
 }
 //----------------------------------------
-//REMOVE ITEM FROM CART---------------------
+
+//REMOVE ITEM FROM CART----------------------
+const removeItemFromCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+}
+
+//--------------------------------------------
+
+//CLEAR ITEM FROM CART---------------------
 const clearItemFromCart = (cartItemToClear) => {
     setCartItems(clearCartItem(cartItems, cartItemToClear));
 }
@@ -81,6 +107,7 @@ const clearItemFromCart = (cartItemToClear) => {
         clearItemFromCart,
         cartCount,
         cartTotal,
+        removeItemFromCart,
     }
 //-------------------------------------
 

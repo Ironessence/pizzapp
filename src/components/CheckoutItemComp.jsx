@@ -22,13 +22,13 @@ const CheckoutItemComp = ({cartItem}) => {
         <PizzaName>{name}</PizzaName>
         <Ingredients>{ingredients}</Ingredients>
         </Description>
-           
+         
         <QuantityContainer>
-        <Decrement>-</Decrement>
+        <Decrement onClick={removeItemHandler}>-</Decrement>
         <Quantity>{quantity}</Quantity>
         <Increment onClick={addItemHandler}>+</Increment>
         </QuantityContainer>
-        <Price>{price}</Price>
+        <Price>$ {price}</Price>
         <RemoveButton onClick={clearItemHandler}>X</RemoveButton>
 
     </Container>
@@ -56,6 +56,11 @@ const Price = styled.h3`
 
 const Increment = styled.span`
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 25px;
 `
 
 const Quantity = styled.h4`
@@ -63,7 +68,12 @@ const Quantity = styled.h4`
 `
 
 const Decrement = styled.span`
-    
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 25px;
 `
 
 const QuantityContainer = styled.div`
@@ -71,6 +81,7 @@ const QuantityContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    align-items: center;
     
 
 `
@@ -100,6 +111,7 @@ const ImageContainer = styled.div`
 const Container = styled.div`
     display: flex;
     align-items: center;
+    gap: 30px;
     
 `
 

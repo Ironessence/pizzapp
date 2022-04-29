@@ -7,12 +7,20 @@ import CartIconComponent from '../components/CartIconComponent';
 import CartDropdown from '../components/CartDropdown';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
+import { signOutUser } from '../utils/firebase';
+import AccountComponent from '../components/AccountComponent';
 
-
+//CURRENT USER SIGN IN / SIGN OUT to-do;
 
 const Navbar = () => {
    
     const {isCartOpen} = useContext(CartContext);
+    const {currentUser, openAccountTab, setOpenAccountTab} = useContext(UserContext);
+
+    const accountTabOpenHandler = () => {
+        setOpenAccountTab(!openAccountTab);
+    }
     
   return (
       <>
@@ -27,12 +35,11 @@ const Navbar = () => {
         <Link to='/menu'>
             OUR MENU
         </Link>
-        <Link to='/auth'>
-            SIGN IN
-        </Link>
-        <Link to='/register'>
-            REGISTER
-        </Link>
+        <Account onClick={accountTabOpenHandler}>
+            ACCOUNT
+        </Account>
+        {openAccountTab && <AccountComponent /> }
+        
         <CartIconComponent 
                
         />
@@ -44,6 +51,16 @@ const Navbar = () => {
     </>
   )
 }
+
+const Account = styled.span`
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 12px;
+    transition: 0.5s ease;
+    &:hover {
+            background-color: #fcdea7;
+        }
+`
 
 const LogoContainer = styled.div`
     height: 70px;

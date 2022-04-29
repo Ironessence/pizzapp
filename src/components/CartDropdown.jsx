@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import CartItemComp from './CartItemComp';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,35 @@ const CartDropdown = () => {
   const {cartItems, isCartOpen, setIsCartOpen} = useContext(CartContext);
   const navigate = useNavigate();
 
+  //FUNCTION TO CLOSE CART IF CLICKED OUTSIDE-----
+  const useOutsideAlert = (ref) => {
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setIsCartOpen(!isCartOpen);
+                
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [ref]);
+  }
+
+  //-----------------------------------------------
+//WRAPPER FOR CLICK OUTSIDE--------------
+  const wrapperRef = useRef(null);
+  useOutsideAlert(wrapperRef);
+//----------------------------------------
   const goToCheckoutHandler = () => {
     navigate('/checkout');
     setIsCartOpen(!isCartOpen);
   }
 
     return (
-    <Container>
+    <Container ref={wrapperRef}>
          {cartItems.map((cartItem) => (
            <CartItemComp key={cartItem.id} cartItem={cartItem}/>
          ))}
