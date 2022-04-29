@@ -77,7 +77,7 @@ const Logo = styled.img`
 `
 
 const Container = styled.div`
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 70px;
     background-color: transparent;

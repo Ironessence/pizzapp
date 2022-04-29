@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useContext} from 'react';
+import { CartContext } from '../contexts/CartContext';
 
 
 const CartItemComp = ({cartItem}) => {
 
     const {name, image, ingredients, price, quantity} = cartItem;
+    const {clearItemFromCart} = useContext(CartContext);
+
+    const clearItem = () => clearItemFromCart(cartItem);
 
     
   return (
@@ -12,20 +17,40 @@ const CartItemComp = ({cartItem}) => {
         <PizzaImg src={image}/>
         <PizzaDetails>
         <PizzaName>{name}</PizzaName>
-        
-        <PizzaQuantity>{quantity} x ${price}</PizzaQuantity>
+        <PizzaQuantity>
+        {quantity} x ${price}
+        </PizzaQuantity>
         </PizzaDetails>
-        <RemovePizza>X</RemovePizza>
+        <RemovePizza onClick={clearItem}>X</RemovePizza>
       </Container>
   )
 }
 
-const RemovePizza = styled.span`
+const Increment = styled.span`
+  cursor: pointer;
   font-size: 25px;
   font-weight: 700;
 `
 
+const Decrement = styled.span`
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 700;
+`
+
+const RemovePizza = styled.span`
+  font-size: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  
+  
+`
+
 const PizzaQuantity = styled.span`
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  
   
 `
 
@@ -41,6 +66,7 @@ const PizzaDetails = styled.div`
 
 const PizzaImg = styled.img`
   width: 70px;
+  
 `
 
 const Container = styled.div`

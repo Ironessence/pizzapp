@@ -3,62 +3,44 @@ import styled from 'styled-components';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import CartItemComp from './CartItemComp';
+import { useNavigate } from 'react-router-dom';
 
 
 const CartDropdown = () => {
     
-  const {cartItems} = useContext(CartContext);
+  const {cartItems, isCartOpen, setIsCartOpen} = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const goToCheckoutHandler = () => {
+    navigate('/checkout');
+    setIsCartOpen(!isCartOpen);
+  }
 
     return (
     <Container>
          {cartItems.map((cartItem) => (
            <CartItemComp key={cartItem.id} cartItem={cartItem}/>
          ))}
+         <CheckoutButton onClick={goToCheckoutHandler}>GO TO CHECKOUT</CheckoutButton>
     </Container>
   )
 }
 
-const CartItemQty = styled.span`
-  
+const CheckoutButton = styled.button`
+  position: absolute;
+  bottom: 2%;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 12px;
+  border-style: none;
+  background-color: #fed280;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    background-color: orange;
+  }
 `
 
-const Increment = styled.span`
-  
-`
-
-const Decrement = styled.span`
-  
-`
-
-const CartButtons = styled.div`
-  display: flex;
-`
-
-const CartItemPrice = styled.h3`
-  
-`
-
-const CartItemName = styled.h2`
-  
-`
-
-const CartItemDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const CartItemImage = styled.img`
-  width: 25%;
-`
-
-const CartItemContainer = styled.div`
-  display: flex;
-`
-
-const CartText = styled.h3`
-  margin-top: 30px;
-  text-align: center;
-`
 
 const Container = styled.div`
     width: 300px;

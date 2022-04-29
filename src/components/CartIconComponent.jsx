@@ -7,17 +7,17 @@ import { CartContext } from '../contexts/CartContext';
 
 const CartIconComponent = () => {
     
-  const {isCartOpen, setIsCartOpen} = useContext(CartContext);
+  const {isCartOpen, setIsCartOpen, cartCount} = useContext(CartContext);
 
   const toggleIsCartOpen = () => {
     setIsCartOpen(!isCartOpen);
-    console.log(isCartOpen);
+    
   };
   
   return (
     <Container onClick={toggleIsCartOpen}>
         <Image src={PizzaImg} />
-        <Badge>2</Badge>
+        <Badge>{cartCount}</Badge>
     </Container>
   )
 }

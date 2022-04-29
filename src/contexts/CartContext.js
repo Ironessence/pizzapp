@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 
 //ADD TO CART FUNCTION ----------------------
 const addCartItem = (cartItems, productToAdd) => {
@@ -16,6 +16,13 @@ const addCartItem = (cartItems, productToAdd) => {
 
 //-------------------------------------------
 
+//CLEAR ITEM FROM CART FUNCTION --------------------
+const clearCartItem = (cartItems, cartItemToClear) => 
+cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
+
+//--------------------------------------------------
+
 
 //CART OPEN/CLOSED --------------------------
 export const CartContext = createContext({
@@ -23,6 +30,9 @@ export const CartContext = createContext({
     setIsCartOpen: () => {},
     cartItems: [],
     addItemToCart: () => {},
+    clearItemFromCart: () => {},
+    cartCount: 0,
+    cartTotal: 0,
 })
 //-------------------------------------------
 
@@ -31,14 +41,35 @@ export const CartProvider = ({children}) => {
 //USE STATES-------------------------------------------- 
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [cartCount, setCartCount] = useState(0);
+    const [cartTotal, setCartTotal] = useState(0);
 //------------------------------------------------------
+//CART COUNT BUBBLE-----------------------
+
+useEffect(() => {
+    const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0)
+    setCartCount(newCartCount);
+}, [cartItems])
+
+//----------------------------------------
+
+//CART TOTAL ON CHECKOUT-------------------
+useEffect(() => {
+    const newCartTotal = cartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0)
+    setCartTotal(newCartTotal);
+}, [cartItems])
+//-----------------------------------------
 
 //ADD ITEM TO CART-------------------------
 const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
 }
 //----------------------------------------
-
+//REMOVE ITEM FROM CART---------------------
+const clearItemFromCart = (cartItemToClear) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear));
+}
+//-------------------------------------------
 
 
 //VALUES-----------------------------
@@ -47,6 +78,9 @@ const addItemToCart = (productToAdd) => {
         setIsCartOpen,
         addItemToCart,
         cartItems,
+        clearItemFromCart,
+        cartCount,
+        cartTotal,
     }
 //-------------------------------------
 
