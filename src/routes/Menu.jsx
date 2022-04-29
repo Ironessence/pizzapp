@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import Navbar from './Navbar';
 import PizzaCard from '../components/PizzaCard';
 
 const Menu = (props) => {
 
-    const pizzas = props.pizzas;
+    const {pizzas} = props;
     
-
   return (
       <Container>
-    <Navbar />
+    
     {pizzas.map(pizza => (
         <PizzaCard key={pizza.id} pizza={pizza}/>
     ))}

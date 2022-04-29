@@ -1,15 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useContext} from 'react';
+import { CartContext } from '../contexts/CartContext';
 
 const PizzaCard = ({pizza}) => {
-  return (
+  
+    const {image, name, ingredients, price} = pizza;
+
+    const {addItemToCart} = useContext(CartContext);
+
+    const addProductToCart = () => addItemToCart(pizza);
+  
+    return (
     <Container>
-        <PizzaImage src={pizza.image}/>
+        <PizzaImage src={image}/>
         <PizzaDetails>
-            <PizzaName>{pizza.name}</PizzaName>
-            <PizzaIngredients>{pizza.ingredients}</PizzaIngredients>
-            <PizzaPrice>$ {pizza.price}</PizzaPrice>
-            <AddToCartButton>ADD TO CART</AddToCartButton>
+            <PizzaName>{name}</PizzaName>
+            <PizzaIngredients>{ingredients}</PizzaIngredients>
+            <PizzaPrice>$ {price}</PizzaPrice>
+            <AddToCartButton onClick={addProductToCart}>ADD TO CART</AddToCartButton>
         </PizzaDetails>
         
     </Container>

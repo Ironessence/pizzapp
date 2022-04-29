@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import PizzaImg from '../assets/pizzaslice.png';
+import { useContext } from 'react';
+import { CartContext } from '../contexts/CartContext';
 
 
-const CartIconComponent = ({onPress}) => {
+const CartIconComponent = () => {
     
+  const {isCartOpen, setIsCartOpen} = useContext(CartContext);
+
+  const toggleIsCartOpen = () => {
+    setIsCartOpen(!isCartOpen);
+    console.log(isCartOpen);
+  };
   
   return (
-    <Container onClick={onPress}>
+    <Container onClick={toggleIsCartOpen}>
         <Image src={PizzaImg} />
         <Badge>2</Badge>
     </Container>

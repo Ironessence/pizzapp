@@ -9,17 +9,21 @@ import pizzas from '../src/data';
 
 function App() {
 
-  
-
+ 
+    
   return (
+    
+       
    <Routes>
-     <Route path='/' element={<Navbar /> }/>
+     <Route path='/' element={<Navbar />}>
      <Route index element={<Homepage /> }/>
      <Route path='/menu' element={<Menu pizzas={pizzas} /> }/>
      <Route path='/auth' element={<SignIn /> }/>
      <Route path='/register' element={<Register /> }/>
+     </Route>
      
    </Routes>
+   
   );
 }
 

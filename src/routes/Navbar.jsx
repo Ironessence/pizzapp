@@ -2,21 +2,20 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import LogoImg from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import CartIconComponent from '../components/CartIconComponent';
 import CartDropdown from '../components/CartDropdown';
+import { useContext } from 'react';
+import { CartContext } from '../contexts/CartContext';
+
+
 
 const Navbar = () => {
-
-    const [cartOpen, setCartOpen] = useState(false);
-
-    const handleClick = () => {
-        setCartOpen(!cartOpen);
-        console.log(cartOpen);
-    }
+   
+    const {isCartOpen} = useContext(CartContext);
     
-
   return (
+      <>
     <Container>
         <LogoContainer>
         <Link to='/'>
@@ -35,15 +34,14 @@ const Navbar = () => {
             REGISTER
         </Link>
         <CartIconComponent 
-        onPress={handleClick}
-        cartOpen={cartOpen}
-        
-        
+               
         />
         </LinksContainer>
-        {cartOpen && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
        
     </Container>
+    <Outlet />
+    </>
   )
 }
 
