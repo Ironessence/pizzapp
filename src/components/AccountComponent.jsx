@@ -1,10 +1,11 @@
 import React from 'react';
-import {useRef, useEffect} from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import { Link } from 'react-router-dom';
+import SignUpFormComponent from './SignUpFormComponent';
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../utils/firebase';
-
 
 const defaultFormFields = {
     
@@ -12,46 +13,194 @@ const defaultFormFields = {
     password: '',
     
 }
-
-//WORK HERE ON THE SIGN IN COMP!! to-do
-
-const AccountComponent = () => {
-
-
-//FUNCTION TO CLOSE ACCOUNT TAB IF CLICK OUTSIDE-----------------
-    const useOutsideAlert = (ref) => {
-        useEffect(() => {
-            function handleClickOutside(event) {
-                if (ref.current && !ref.current.contains(event.target)) {
-                    setOpenAccountTab(!openAccountTab);
-                    
-                }
-            }
     
-            document.addEventListener('mousedown', handleClickOutside);
-            return () => {
-                document.removeEventListener('mousedown', handleClickOutside);
-            };
-        }, [ref]);
+const AccountComponent = () => {
+//get account tab state from user context-------------------------------
+    const {openAccountTab, setOpenAccountTab, openRegisterPopup, setOpenRegisterPopup} = useContext(UserContext);
+//----------------------------------------------------------------------
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const {email, password} = formFields;
+//RESET FORM FIELDS--------------------------------
+    const resetFormFields = () => {
+        setFormFields(defaultFormFields);
     }
-//---------------------------------------------------------------
-//WRAPPER REF FOR ACCOUNT CLICK OUTSIDE---------------------------
-    const wrapperRef = useRef(null);
-    useOutsideAlert(wrapperRef);
-    const {openAccountTab, setOpenAccountTab} = useContext(UserContext);
+//----------------------------------------------
+//SIGN IN WITH GOOGLE----------------------------
+    const signInWithGoogle = async () => {
+        await signInWithGooglePopup();
+    }
+//-------------------------------------------------
+//ACTUALLY SIGN IN-----------------------------------
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const {user} = await signInAuthUserWithEmailAndPassword(email, password);
+            resetFormFields();
+        } catch(error) {
+            switch(error.code) {
+                case 'auth/wrong-password':
+                    alert('Incorrect password!');
+                    break;
+                case 'auth/user-not-found':
+                    alert('Account does not exist!');
+                    break;
+                default:
+                    console.log(error)
+        }
+    }
+}
 //----------------------------------------------------
+//FORM FIELDS CHANGE VALUE--------------------------
+const handleChange = (event) => {
+    const {name, value} = event.target;
+
+    setFormFields({...formFields, [name]: value})
+}
+//--------------------------------------------------
+//CLOSE ACCOUNT TAB---------------------------------
+const toggleCloseAccountTab = () => {
+    setOpenAccountTab(!openAccountTab);
+}
+//---------------------------------------------------
+//TOGGLE STATE FOR OPEN REGISTER TAB-------------------
+const toggleRegisterTab = () => {
+    setOpenRegisterPopup(!openRegisterPopup);
+    
+}
+
+//-----------------------------------------------------
+
 
   return (
-    <Container ref={wrapperRef}>AccountComponent</Container>
+    <Container>
+        {!openRegisterPopup 
+        ?
+        <>
+        <Title>Sign In to your account</Title>
+        <Form onSubmit={handleSubmit}>
+            <Label>E-Mail Address:</Label>
+            <FormInput  placeholder='E-Mail Address' type='email' required onChange={handleChange} name='email' value={email}/>
+            <Label>Password:</Label>
+            <FormInput label='Password' placeholder='Password' type='password' required onChange={handleChange} name='password' value={password} />
+            <ButtonsContainer>
+            <Button type='submit'>Sign In</Button>
+            <GoogleButton type='button' onClick={signInWithGoogle}>Google Sign In</GoogleButton>
+            </ButtonsContainer>
+            
+        </Form>
+
+        <PasswordForgot>
+        <Link to='/forgot-password'>
+            Forgot your password?
+            </Link>
+        </PasswordForgot>
+        <AccountRegister>
+        <Register onClick={toggleRegisterTab}>Don't have an account?</Register>
+        </AccountRegister>
+        <CloseSignInPopup onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
+        </>
+        :
+        <SignUpFormComponent />
+    }
+        
+        
+    </Container>
   )
 }
 
 
 //STYLED COMPONENTS----------------------------------------------
+
+const Register = styled.span`
+    cursor: pointer;
+`
+
+const CloseSignInPopup = styled.span`
+    position: absolute;
+    right: 5%;
+    top: 3%;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+`
+
+const AccountRegister = styled.div`
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: underline;
+`
+
+const PasswordForgot = styled.span`
+    text-align: center;
+    margin-top: 120px;
+    cursor: pointer;
+    text-decoration: underline;
+`
+
+const GoogleButton = styled.button`
+    padding: 10px;
+    font-size: 16px;
+    background-color: #5468f0;
+    border-style: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.5s ease;
+    &:hover {
+        background-color: blue;
+    }
+`
+
+const ButtonsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    
+`
+
+const Button = styled.button`
+    padding: 10px;
+    font-size: 16px;
+    background-color: transparent;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.5s ease;
+    &:hover {
+        background-color: orange;
+    }
+`
+
+const Label = styled.label`
+    margin-bottom: 5px;
+    text-align: center;
+    
+`
+
+const FormInput = styled.input`
+    padding: 10px 0px;
+    margin-bottom: 20px;
+    
+`
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20%;
+    margin-top: 10%;
+`
+
+const Title = styled.h2`
+    text-align: center;
+    margin-top: 5%;
+    font-weight: 400;
+`
+
 const Container = styled.div`
     width: 30%;
     min-width: 400px;
-    height: 50vh;
+    height: 55vh;
     background-color: white;
     border-radius: 25px;
     position: absolute;
@@ -60,6 +209,9 @@ const Container = styled.div`
     right: 50%;
     transform: translateX(50%);
     box-shadow: 2px 4px 8px darkgray;
+    display: flex;
+    flex-direction: column;
+    
     
 `
 

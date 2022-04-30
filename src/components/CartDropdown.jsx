@@ -11,35 +11,14 @@ const CartDropdown = () => {
   const {cartItems, isCartOpen, setIsCartOpen} = useContext(CartContext);
   const navigate = useNavigate();
 
-  //FUNCTION TO CLOSE CART IF CLICKED OUTSIDE-----
-  const useOutsideAlert = (ref) => {
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setIsCartOpen(!isCartOpen);
-                
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [ref]);
-  }
-
-  //-----------------------------------------------
-//WRAPPER FOR CLICK OUTSIDE--------------
-  const wrapperRef = useRef(null);
-  useOutsideAlert(wrapperRef);
-//----------------------------------------
+  
   const goToCheckoutHandler = () => {
     navigate('/checkout');
     setIsCartOpen(!isCartOpen);
   }
 
     return (
-    <Container ref={wrapperRef}>
+    <Container>
          {cartItems.map((cartItem) => (
            <CartItemComp key={cartItem.id} cartItem={cartItem}/>
          ))}

@@ -35,9 +35,16 @@ const Navbar = () => {
         <Link to='/menu'>
             OUR MENU
         </Link>
+        {currentUser 
+        ? 
+        <SignOutText onClick={signOutUser}>
+            SIGN OUT
+        </SignOutText> 
+        : 
         <Account onClick={accountTabOpenHandler}>
             ACCOUNT
-        </Account>
+        </Account>}
+        
         {openAccountTab && <AccountComponent /> }
         
         <CartIconComponent 
@@ -51,6 +58,16 @@ const Navbar = () => {
     </>
   )
 }
+
+const SignOutText = styled.span`
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 12px;
+    transition: 0.5s ease;
+    &:hover {
+            background-color: #fcdea7;
+        }
+`
 
 const Account = styled.span`
     cursor: pointer;

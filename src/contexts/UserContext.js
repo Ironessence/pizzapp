@@ -7,6 +7,8 @@ export const UserContext = createContext({
     setCurrentUser: () => null,
     openAccountTab: false,
     setOpenAccountTab: () => {},
+    openRegisterPopup: false,
+    setOpenRegisterPopup: () => {},
 });
 //------------------------------------------------
 
@@ -14,11 +16,14 @@ export const UserContext = createContext({
 export const UserProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [openAccountTab, setOpenAccountTab] = useState(false);
+    const [openRegisterPopup, setOpenRegisterPopup] = useState(false);
     const value = {
         currentUser,
         setCurrentUser,
         openAccountTab,
         setOpenAccountTab,
+        openRegisterPopup,
+        setOpenRegisterPopup,
     }
 
 //-----------------------------------------------
