@@ -26,13 +26,30 @@ const Checkout = () => {
       )}
       <Total>Total: $ {cartTotal}</Total>
       </CheckoutItemsContainer>
+      <ContinueToPaymentButton>PAYMENT</ContinueToPaymentButton>
     </Container>
     </>
   )
 }
 
+const ContinueToPaymentButton = styled.button`
+  font-size: 20px;
+  padding: 10px;
+  margin-left: auto;
+  background-color: transparent;
+  border: 1px solid orange;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 0.5s ease;
+  font-weight: 300;
+  &:hover {
+    background-color: orange;
+  }
+`
+
 const CheckoutTitle = styled.h1`
   text-align: center;
+  margin-top: 50px;
 `
 
 const Total = styled.span`
@@ -46,7 +63,6 @@ const CheckoutItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   
-  width: 100%;
   
 `
 
@@ -58,8 +74,12 @@ const CheckoutHeader = styled.div`
   width: 100%;
   display: flex;
   font-size: 25px;
-  justify-content: space-around;
-  padding: 20px 0px;
+  justify-content: space-between;
+  padding: 10px 0px;
+  border-bottom: 1px solid darkgrey;
+  @media only screen and (max-width: 650px) {
+    display: none;
+  }
 `
 
 const Container = styled.div`
@@ -68,11 +88,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 25px;
-  margin-top: 5%;
+  margin: 50px auto 0;
+  padding-bottom: 50px;
   
 `
 

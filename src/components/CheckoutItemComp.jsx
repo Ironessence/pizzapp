@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import styled from 'styled-components';
+import {motion} from 'framer-motion';
 
 const CheckoutItemComp = ({cartItem}) => {
 
@@ -29,7 +30,10 @@ const CheckoutItemComp = ({cartItem}) => {
         <Increment onClick={addItemHandler}>+</Increment>
         </QuantityContainer>
         <Price>$ {price}</Price>
-        <RemoveButton onClick={clearItemHandler}>X</RemoveButton>
+        <RemoveButton 
+        whileHover={{rotate: 180}}
+        transition={{duration: 0.75}}
+        onClick={clearItemHandler}>X</RemoveButton>
 
     </Container>
   )
@@ -38,29 +42,41 @@ const CheckoutItemComp = ({cartItem}) => {
 const Description = styled.div`
     display: Flex;
     flex-direction: column;
-    flex-basis: 20%;
     text-align: center;
-    
+    flex: 1;
+        
 `
 
-const RemoveButton = styled.span`
-    flex-basis: 20%;
+const RemoveButton = styled(motion.span)`
     text-align: center;
     cursor: pointer;
+    @media only screen and (max-width: 650px){
+        position: absolute;
+        top: 5%;
+        right: 5%;
+    }
 `
 
 const Price = styled.h3`
-    flex-basis: 20%;
     text-align: center;
+    flex: 1;
+    padding-right: 10%;
+    @media only screen and (max-width: 650px) {
+        padding-right: 0;
+    }
+    
+    
 `
 
 const Increment = styled.span`
     cursor: pointer;
     font-size: 20px;
     font-weight: 600;
-    background-color: lightgray;
-    padding: 10px;
-    border-radius: 25px;
+    background-color: #efefef;
+    padding: 5px;
+    width: 20px;
+    border-radius: 50%;
+    text-align: center;
 `
 
 const Quantity = styled.h4`
@@ -71,22 +87,30 @@ const Decrement = styled.span`
     cursor: pointer;
     font-size: 20px;
     font-weight: 600;
-    background-color: lightgray;
-    padding: 10px;
-    border-radius: 25px;
+    width: 20px;
+    text-align: center;
+    background-color: #efefef;
+    padding: 5px;
+    border-radius: 50%;
 `
 
 const QuantityContainer = styled.div`
-    flex-basis: 20%;
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
     align-items: center;
+    flex: 1;
+    box-sizing: border-box;
+    @media only screen and (max-width: 650px) {
+        width: 30%;
+    }
     
+    
+       
 
 `
 
 const PizzaName = styled.h3`
+      
     
 `
 
@@ -95,23 +119,35 @@ const Ingredients = styled.span`
 `
 
 const ProductImage = styled.img`
-    min-width: 30%;
-    width: 200px;
+    min-width: 100px;
+    width: 150px;
+    
+    
     
 `
 
 const ImageContainer = styled.div`
-    flex: 1;
-    flex-basis: 20%;
-    padding-left: 20px;
-    
+    flex: 0.5;
     
 `
 
 const Container = styled.div`
     display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: space-between;
+    min-height: 200px;
+    border-bottom: 1px solid darkgray;
+    padding: 0;
+    font-size: 20px;
+    width: 80vw;
+    @media only screen and (max-width: 650px) {
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+        padding-bottom: 20px;
+        
+    }
+
     
 `
 
