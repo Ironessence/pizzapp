@@ -22,7 +22,7 @@ const CartIconComponent = () => {
   return (
     <Container onClick={toggleIsCartOpen}>
         <Image src={iconcart} />
-        <Badge>{cartCount}</Badge>
+        <Badge cartCount={cartCount}>{cartCount}</Badge>
     </Container>
   )
 }
@@ -32,7 +32,7 @@ const Badge = styled.span`
     position: absolute;
     right: -20%;
     bottom: 10%;
-    padding: 2px 6px;
+    padding: ${props => props.cartCount > 9 ? '4px 6px' : '4px 8px'};
     background-color: #ffda94;
     border-radius: 50%;
 `
@@ -49,6 +49,8 @@ const Container = styled.div`
     position: relative;
     display: flex;
     align-items: center;
+    
+    
     
 `
 

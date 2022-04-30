@@ -33,18 +33,15 @@ const RemovePizza = styled.span`
   font-size: 25px;
   font-weight: 700;
   cursor: pointer;
-  
-  
+    
 `
 
 const PizzaQuantity = styled.span`
   align-items: center;
   justify-content: space-evenly;
   display: flex;
-  
-  
+    
 `
-
 
 const PizzaName = styled.h2`
   
@@ -53,6 +50,8 @@ const PizzaName = styled.h2`
 const PizzaDetails = styled.div`
   display: flex;
   flex-direction: column;
+  flex-basis: 50%;
+  align-items: center;
 `
 
 const PizzaImg = styled.img`
@@ -62,11 +61,13 @@ const PizzaImg = styled.img`
 
 const Container = styled.div`
   width: 100%;
-  height: 20%;
+  height: 15%;
   border-bottom: 1px solid lightgray;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  
+  
 `
 
 export default CartItemComp;

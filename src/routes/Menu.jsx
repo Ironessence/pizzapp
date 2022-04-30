@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import PizzaCard from '../components/PizzaCard';
+import { motion } from 'framer-motion';
 
 const Menu = (props) => {
 
     const {pizzas} = props;
     
   return (
-      <Container>
+      <Container
+      initial={{x: -500, opacity: 0}}
+      animate={{x: 0, opacity: 1}}
+      transition={{duration: 0.75, type:'spring'}}
+      >
     
     {pizzas.map(pizza => (
         <PizzaCard key={pizza.id} pizza={pizza}/>
@@ -16,7 +21,7 @@ const Menu = (props) => {
   )
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     width: 100%;
     height: auto;
     display: flex;

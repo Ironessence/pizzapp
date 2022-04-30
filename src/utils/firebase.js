@@ -14,12 +14,11 @@ import {
     setDoc,
     collection,
     writeBatch,
-    query,
-    getDocs,
+    
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBqib0gxsWH19-wJj4JhBcLN7cYJ2BLhrE",
+  apiKey: "AIzaSyBqib0gxsWH19-wJj4JhBcLN7cYJ2BLhrE",
   authDomain: "pizzaapptest-f4c91.firebaseapp.com",
   projectId: "pizzaapptest-f4c91",
   storageBucket: "pizzaapptest-f4c91.appspot.com",
@@ -67,8 +66,10 @@ export const createUserDocumentFromAuth = async (
 
     const userSnapshot = await getDoc(userDocRef);
     
+    
     if(!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
+        
         const createdAt = new Date();
 
         try {
@@ -87,6 +88,8 @@ export const createUserDocumentFromAuth = async (
     return userDocRef;
 }
 
+
+
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if(!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password);
@@ -103,3 +106,4 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
 onAuthStateChanged(auth, callback);
+

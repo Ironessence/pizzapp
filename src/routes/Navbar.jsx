@@ -13,14 +13,26 @@ import AccountComponent from '../components/AccountComponent';
 import iconcart from '../assets/carticon.png';
 import iconaccount from '../assets/accounticon.png';
 import iconmenu from '../assets/ourmenuicon.png';
+import { auth } from '../utils/firebase';
 
-//CURRENT USER SIGN IN / SIGN OUT to-do;
+
 
 const Navbar = () => {
+
+   
    
     const {isCartOpen, setIsCartOpen} = useContext(CartContext);
-    const {currentUser, openAccountTab, setOpenAccountTab} = useContext(UserContext);
-
+    const {
+        currentUser, 
+        openAccountTab, 
+        setOpenAccountTab,
+        
+    } = useContext(UserContext);
+//GET CURRENT USER'S EMAIL-----------------------------
+    if(currentUser) {
+        console.log(auth.currentUser.email);
+    }
+//-----------------------------------------------------
     const accountTabOpenHandler = () => {
         setOpenAccountTab(!openAccountTab);
         if(isCartOpen) {
@@ -28,6 +40,10 @@ const Navbar = () => {
         }
         
     }
+
+    
+
+
     
   return (
       <>
@@ -42,20 +58,21 @@ const Navbar = () => {
         <LinkIcon src={iconmenu}/> 
         <LinkText>OUR MENU</LinkText>   
         </Link>
-               
-        {currentUser 
+        {!currentUser 
         ? 
-        <SignOutText onClick={signOutUser}>
-            SIGN OUT
-        </SignOutText> 
-        : 
         <AccountLinkContainer onClick={accountTabOpenHandler}>
         <LinkIcon src={iconaccount} />
         <Account>
         ACCOUNT
         </Account>
-        </AccountLinkContainer>}
-        {openAccountTab && <AccountComponent /> }
+        </AccountLinkContainer>
+        :
+        <SignOutText onClick={signOutUser}>SIGN OUT</SignOutText>
+        }      
+        
+        
+        {openAccountTab &&  <AccountComponent /> }
+        
         <CartIconComponent />
         </LinksContainer>
         
@@ -76,8 +93,9 @@ const AccountLinkContainer = styled.div`
         cursor: pointer;
         padding: 7px;
         border-radius: 12px;
+        transition: 0.5s ease;
         &:hover {
-            background-color: #fcdea7;
+            background-color: #fff3de;
         }
 `
 
@@ -96,11 +114,11 @@ const LinkIcon = styled.img`
 
 const SignOutText = styled.span`
     cursor: pointer;
-    padding: 5px;
+    padding: 10px 7px;
     border-radius: 12px;
     transition: 0.5s ease;
     &:hover {
-            background-color: #fcdea7;
+            background-color: #fff3de;
         }
 `
 
@@ -108,9 +126,7 @@ const Account = styled.span`
     cursor: pointer;
     border-radius: 12px;
     transition: 0.5s ease;
-    &:hover {
-        background-color: #fcdea7;
-    }
+    
     @media only screen and (max-width: 650px) {
         display: none;
     }
@@ -143,8 +159,9 @@ const LinksContainer = styled.div`
         cursor: pointer;
         padding: 7px;
         border-radius: 12px;
+        transition: 0.5s ease;
         &:hover {
-            background-color: #fcdea7;
+            background-color: #fff3de;
         }
         
     }

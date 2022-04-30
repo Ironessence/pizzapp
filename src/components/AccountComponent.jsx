@@ -6,6 +6,7 @@ import { UserContext } from '../contexts/UserContext';
 import { Link } from 'react-router-dom';
 import SignUpFormComponent from './SignUpFormComponent';
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../utils/firebase';
+import {motion} from 'framer-motion';
 
 const defaultFormFields = {
     
@@ -37,6 +38,7 @@ const AccountComponent = () => {
         try {
             const {user} = await signInAuthUserWithEmailAndPassword(email, password);
             resetFormFields();
+            setOpenAccountTab(!openAccountTab);
         } catch(error) {
             switch(error.code) {
                 case 'auth/wrong-password':
@@ -73,7 +75,11 @@ const toggleRegisterTab = () => {
 
 
   return (
-    <Container>
+    <Container
+    initial={{ opacity: 0}}
+    animate={{ opacity: 1}}
+    transition={{duration: 1, type:'spring'}}
+    >
         {!openRegisterPopup 
         ?
         <>
@@ -91,14 +97,17 @@ const toggleRegisterTab = () => {
         </Form>
 
         <PasswordForgot>
-        <Link to='/forgot-password'>
+        
             Forgot your password?
-            </Link>
+        
         </PasswordForgot>
         <AccountRegister>
         <Register onClick={toggleRegisterTab}>Don't have an account?</Register>
         </AccountRegister>
-        <CloseSignInPopup onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
+        <CloseSignInPopup 
+        whileHover={{rotate: 180}}
+        transition={{duration: 0.7}}
+        onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
         </>
         :
         <SignUpFormComponent />
@@ -116,7 +125,7 @@ const Register = styled.span`
     cursor: pointer;
 `
 
-const CloseSignInPopup = styled.span`
+const CloseSignInPopup = styled(motion.span)`
     position: absolute;
     right: 5%;
     top: 3%;
@@ -141,13 +150,13 @@ const PasswordForgot = styled.span`
 const GoogleButton = styled.button`
     padding: 10px;
     font-size: 16px;
-    background-color: #5468f0;
+    background-color: #c5cdff;
     border-style: none;
     border-radius: 12px;
     cursor: pointer;
     transition: 0.5s ease;
     &:hover {
-        background-color: blue;
+        background-color: #3369e8;
     }
 `
 
@@ -181,6 +190,9 @@ const Label = styled.label`
 const FormInput = styled.input`
     padding: 10px 0px;
     margin-bottom: 20px;
+    &::-webkit-input-placeholder {
+   padding-left: 10px;
+  }
     
 `
 
@@ -197,10 +209,10 @@ const Title = styled.h2`
     font-weight: 400;
 `
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     width: 30%;
     min-width: 400px;
-    height: 55vh;
+    height: 60vh;
     background-color: white;
     border-radius: 25px;
     position: absolute;

@@ -4,6 +4,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../utils/firebase';
 import leftarrowimg from '../assets/leftarrow.png';
+import { motion } from 'framer-motion';
 
 const defaultFormFields = {
     displayName: '',
@@ -36,7 +37,7 @@ const SignUpFormComponent = () => {
             await createUserDocumentFromAuth(user, {displayName});
             resetFormFields();
             setOpenRegisterPopup(!openRegisterPopup);
-            alert('Account created successfully! You can now Sign In.');
+            alert('Account created successfully! You are now signed in!');
 
         } catch(error) {
             if(error.code === 'auth/email-already-in-use') {
@@ -68,23 +69,29 @@ const SignUpFormComponent = () => {
         <Title>Create an account</Title>
         <RegisterForm onSubmit={handleSubmit}>
         <RegisterLabel>Display Name:</RegisterLabel>
-        <RegisterInput type='text' required onChange={handleChange} name='displayName' value={displayName}/>
+        <RegisterInput placeholder='Display Name' type='text' required onChange={handleChange} name='displayName' value={displayName}/>
         <RegisterLabel>E-Mail Address:</RegisterLabel>
-        <RegisterInput type='email' required onChange={handleChange} name='email' value={email}/>
+        <RegisterInput placeholder='E-Mail Address' type='email' required onChange={handleChange} name='email' value={email}/>
         <RegisterLabel>Password:</RegisterLabel>
-        <RegisterInput type='password' required onChange={handleChange} name='password' value={password}/>
+        <RegisterInput placeholder='Password' type='password' required onChange={handleChange} name='password' value={password}/>
         <RegisterLabel>Confirm Password:</RegisterLabel>
-        <RegisterInput type='password' required onChange={handleChange} name='confirmPassword' value={confirmPassword}/>
+        <RegisterInput placeholder='Confirm Password' type='password' required onChange={handleChange} name='confirmPassword' value={confirmPassword}/>
         <PolicyText>By registering, you agree to our <b>Privacy Policy</b> and <b>Terms and Conditions</b></PolicyText>
         <SignUpButton type='submit'>Create Account</SignUpButton>
         </RegisterForm>
-        <BackToSignIn src={leftarrowimg} onClick={toggleBackToSignIn} />
-        <CloseSignInPopup onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
+        <BackToSignIn 
+        whileHover={{x: -10}}
+        transition={{duration: 0.7}}
+        src={leftarrowimg} onClick={toggleBackToSignIn} />
+        <CloseSignInPopup 
+        whileHover={{rotate: 180}}
+        transition={{duration: 0.7}}
+        onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
     </> 
   )
 }
 
-const BackToSignIn = styled.img`
+const BackToSignIn = styled(motion.img)`
     position: absolute;
     width: 25px;
     top: 3%;
@@ -114,6 +121,9 @@ const SignUpButton = styled.button`
 const RegisterInput = styled.input`
     padding: 10px 0px;
     margin-bottom: 20px;
+    &::-webkit-input-placeholder {
+   padding-left: 10px;
+    }
 `
 
 const RegisterLabel = styled.label`
@@ -128,7 +138,7 @@ const RegisterForm = styled.form`
     margin-top: 10%;
 `
 
-const CloseSignInPopup = styled.span`
+const CloseSignInPopup = styled(motion.span)`
     position: absolute;
     right: 5%;
     top: 3%;
