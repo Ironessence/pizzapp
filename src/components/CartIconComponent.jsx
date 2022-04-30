@@ -1,39 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-import PizzaImg from '../assets/pizzaslice.png';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
+import iconcart from '../assets/carticon.png';
 
 
 const CartIconComponent = () => {
     
   const {isCartOpen, setIsCartOpen, cartCount} = useContext(CartContext);
+  const {openAccountTab, setOpenAccountTab} = useContext(UserContext);
 
   const toggleIsCartOpen = () => {
     setIsCartOpen(!isCartOpen);
+    if(openAccountTab) {
+      setOpenAccountTab(!openAccountTab);
+    }
     
   };
   
   return (
     <Container onClick={toggleIsCartOpen}>
-        <Image src={PizzaImg} />
+        <Image src={iconcart} />
         <Badge>{cartCount}</Badge>
     </Container>
   )
 }
 
 const Badge = styled.span`
-    font-size: 20px;
+    font-size: 14px;
     position: absolute;
-    right: -10%;
+    right: -20%;
     bottom: 10%;
-    padding: 2px 8px;
-    background-color: red;
+    padding: 2px 6px;
+    background-color: #ffda94;
     border-radius: 50%;
 `
 
 const Image = styled.img`
-    height: 50px;
+    height: 40px;
     object-fit: contain;
     cursor: pointer;
 `

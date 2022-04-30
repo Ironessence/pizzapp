@@ -4,6 +4,7 @@ import {useContext} from 'react';
 import { CartContext } from '../contexts/CartContext';
 
 
+
 const CartItemComp = ({cartItem}) => {
 
     const {name, image, ingredients, price, quantity} = cartItem;
@@ -26,17 +27,7 @@ const CartItemComp = ({cartItem}) => {
   )
 }
 
-const Increment = styled.span`
-  cursor: pointer;
-  font-size: 25px;
-  font-weight: 700;
-`
 
-const Decrement = styled.span`
-  cursor: pointer;
-  font-size: 25px;
-  font-weight: 700;
-`
 
 const RemovePizza = styled.span`
   font-size: 25px;
