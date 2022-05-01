@@ -81,11 +81,11 @@ const SignUpFormComponent = () => {
         </RegisterForm>
         <BackToSignIn 
         whileHover={{x: -10}}
-        transition={{duration: 0.7}}
+        transition={{duration: 0.3}}
         src={leftarrowimg} onClick={toggleBackToSignIn} />
         <CloseSignInPopup 
         whileHover={{rotate: 180}}
-        transition={{duration: 0.7}}
+        transition={{duration: 0.3}}
         onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
     </> 
   )

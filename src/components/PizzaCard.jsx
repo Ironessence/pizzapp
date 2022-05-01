@@ -28,25 +28,26 @@ const PizzaCard = ({pizza}) => {
 const AddToCartButton = styled.button`
     background-color: transparent;
     border: 1px solid orange;
-    padding: 5px;
+    padding: 10px;
     border-radius: 12px;
     transition: 0.4s ease;
     cursor: pointer;
     &:hover {
         background-color: orange;
+        color: white;
     }
 `
 
 const PizzaPrice = styled.h3`
-    
+    text-align: center;
 `
 
 const PizzaIngredients = styled.p`
-    
+    text-align: center;
 `
 
 const PizzaName = styled.h2`
-    
+    text-align: center;
 `
 
 const PizzaDetails = styled.div`

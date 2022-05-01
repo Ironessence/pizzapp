@@ -38,7 +38,7 @@ const RemovePizza = styled.span`
 
 const PizzaQuantity = styled.span`
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   display: flex;
     
 `
@@ -52,6 +52,8 @@ const PizzaDetails = styled.div`
   flex-direction: column;
   flex-basis: 50%;
   align-items: center;
+  text-align: center;
+  
 `
 
 const PizzaImg = styled.img`
@@ -65,7 +67,7 @@ const Container = styled.div`
   border-bottom: 1px solid lightgray;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   
   
 `

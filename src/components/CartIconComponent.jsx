@@ -33,9 +33,11 @@ const CartIconComponent = () => {
 const Badge = styled.span`
     font-size: 14px;
     position: absolute;
+    width: 25px;
     right: -20%;
     bottom: 10%;
-    padding: ${props => props.cartCount > 9 ? '4px 6px' : '4px 8px'};
+    padding: 3px 0px;
+    text-align: center;
     background-color: #ffda94;
     border-radius: 50%;
 `

@@ -11,12 +11,7 @@ import iconaccount from '../assets/accounticon.png';
 import iconmenu from '../assets/ourmenuicon.png';
 import ProfileComponent from '../components/ProfileComponent';
 
-
-
-
-
 const Navbar = () => {
-
    
 //GET CONTEXT------------------------------------------------------  
     const {isCartOpen, setIsCartOpen} = useContext(CartContext);
@@ -42,10 +37,6 @@ const profileTabOpenHandler = () => {
     setOpenProfileTab(!openProfileTab);
 }
 //-------------------------------------------------------
-
-    
-
-
     
   return (
       <>
@@ -187,7 +178,8 @@ const Container = styled.div`
     padding: 0px 20px;
     justify-content: space-between;
     box-sizing: border-box;
-    box-shadow: 2px 2px 3px darkgray;
+    box-shadow: 2px 2px 3px 2px darkgray;
+    z-index: 999;
         
 `
 
