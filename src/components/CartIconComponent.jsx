@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
 import iconcart from '../assets/carticon.png';
+import { motion } from 'framer-motion';
 
 
 const CartIconComponent = () => {
@@ -21,7 +22,9 @@ const CartIconComponent = () => {
   
   return (
     <Container onClick={toggleIsCartOpen}>
-        <Image src={iconcart} />
+        <Image 
+        whileHover={{rotate: 5, x: 10}}
+        src={iconcart} />
         <Badge cartCount={cartCount}>{cartCount}</Badge>
     </Container>
   )
@@ -37,13 +40,13 @@ const Badge = styled.span`
     border-radius: 50%;
 `
 
-const Image = styled.img`
+const Image = styled(motion.img)`
     height: 40px;
     object-fit: contain;
     cursor: pointer;
 `
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     height: 70px;
     width: auto;
     position: relative;

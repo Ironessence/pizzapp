@@ -69,7 +69,7 @@ const CheckoutButton = styled.button`
 const Container = styled(motion.div)`
     width: 300px;
     height: calc(100vh - 70px);
-    top: 70px;
+    top: 72px;
     z-index: 99;
     background-color: white;
     display: flex;

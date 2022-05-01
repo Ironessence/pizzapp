@@ -29,6 +29,7 @@ const AccountComponent = () => {
 //SIGN IN WITH GOOGLE----------------------------
     const signInWithGoogle = async () => {
         await signInWithGooglePopup();
+        setOpenAccountTab(!openAccountTab);
     }
 //-------------------------------------------------
 //ACTUALLY SIGN IN-----------------------------------
@@ -110,7 +111,8 @@ const toggleRegisterTab = () => {
         onClick={toggleCloseAccountTab}>X</CloseSignInPopup>
         </>
         :
-        <SignUpFormComponent />
+         <SignUpFormComponent />
+        
     }
         
         
@@ -219,10 +221,11 @@ const Container = styled(motion.div)`
     top: 15vh;
     z-index: 99;
     right: 50%;
-    transform: translateX(50%);
+    transform: translateX(27%);
     box-shadow: 2px 4px 8px darkgray;
     display: flex;
     flex-direction: column;
+    
     
     
 `

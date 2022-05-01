@@ -1,38 +1,34 @@
 import React from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
-import LogoImg from '../assets/logo.png';
 import { Link, Outlet } from 'react-router-dom';
 import CartIconComponent from '../components/CartIconComponent';
 import CartDropdown from '../components/CartDropdown';
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
-import { signOutUser } from '../utils/firebase';
 import AccountComponent from '../components/AccountComponent';
-import iconcart from '../assets/carticon.png';
 import iconaccount from '../assets/accounticon.png';
 import iconmenu from '../assets/ourmenuicon.png';
-import { auth } from '../utils/firebase';
+import ProfileComponent from '../components/ProfileComponent';
+
+
 
 
 
 const Navbar = () => {
 
    
-   
+//GET CONTEXT------------------------------------------------------  
     const {isCartOpen, setIsCartOpen} = useContext(CartContext);
     const {
         currentUser, 
         openAccountTab, 
         setOpenAccountTab,
+        openProfileTab,
+        setOpenProfileTab,
         
     } = useContext(UserContext);
-//GET CURRENT USER'S EMAIL-----------------------------
-    if(currentUser) {
-        console.log(auth.currentUser.email);
-    }
-//-----------------------------------------------------
+//------------------------------------------------------------------
     const accountTabOpenHandler = () => {
         setOpenAccountTab(!openAccountTab);
         if(isCartOpen) {
@@ -40,6 +36,12 @@ const Navbar = () => {
         }
         
     }
+
+//OPEN PROFILE TAB----------------------------------------
+const profileTabOpenHandler = () => {
+    setOpenProfileTab(!openProfileTab);
+}
+//-------------------------------------------------------
 
     
 
@@ -63,15 +65,21 @@ const Navbar = () => {
         <AccountLinkContainer onClick={accountTabOpenHandler}>
         <LinkIcon src={iconaccount} />
         <Account>
-        ACCOUNT
+        SIGN IN
         </Account>
         </AccountLinkContainer>
         :
-        <SignOutText onClick={signOutUser}>SIGN OUT</SignOutText>
+        <AccountLinkContainer onClick={profileTabOpenHandler}>
+        <LinkIcon src={iconaccount} />
+        <Account>
+        ACCOUNT
+        </Account>
+        </AccountLinkContainer>
         }      
         
         
         {openAccountTab &&  <AccountComponent /> }
+        {openProfileTab && <ProfileComponent />}
         
         <CartIconComponent />
         </LinksContainer>
@@ -112,16 +120,6 @@ const LinkIcon = styled.img`
     
 `
 
-const SignOutText = styled.span`
-    cursor: pointer;
-    padding: 10px 7px;
-    border-radius: 12px;
-    transition: 0.5s ease;
-    &:hover {
-            background-color: #fff3de;
-        }
-`
-
 const Account = styled.span`
     cursor: pointer;
     border-radius: 12px;
@@ -138,7 +136,6 @@ const LogoContainer = styled.div`
     align-items: center;
     a {
         text-decoration: none;
-
     }
     
 `
@@ -146,6 +143,7 @@ const LogoContainer = styled.div`
 const LinksContainer = styled.div`
     flex: 2;
     align-self: center;
+    position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: center;
