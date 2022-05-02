@@ -215,7 +215,7 @@ const HighlightsContainer = styled(motion.div)`
   margin-left: 50px;
   @media only screen and (max-width: 650px) {
     
-    padding-bottom: 150px;
+    margin-bottom: 100px;
   }
   
 `
@@ -226,7 +226,7 @@ const PizzaImagesContainer = styled.div`
   align-items: center;
   margin-top: 150px;
   @media only screen and (max-width: 650px) {
-    margin-top: 50px;
+    margin-top: 0px;
   }
    
   
@@ -363,7 +363,7 @@ const ImagesWrapper = styled.div`
   height: 530px;
   top: 290px;
   @media only screen and (max-width: 650px) {
-    top: 190px;
+    top: 20%;
     left: calc(50% - 385px);
     
   }

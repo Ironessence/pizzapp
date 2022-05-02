@@ -51,7 +51,7 @@ const CloseCartButton = styled(motion.span)`
 
 const CheckoutButton = styled.button`
   position: absolute;
-  bottom: 2%;
+  bottom: 20px;
   font-size: 16px;
   padding: 10px;
   border-radius: 12px;
@@ -68,7 +68,7 @@ const CheckoutButton = styled.button`
 
 const Container = styled(motion.div)`
     width: 300px;
-    height: calc(100vh - 70px);
+    height: calc(90vh - 70px);
     top: 72px;
     z-index: 99;
     background-color: white;
