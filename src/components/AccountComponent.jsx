@@ -97,11 +97,7 @@ const toggleRegisterTab = () => {
             
         </Form>
 
-        <PasswordForgot>
         
-            Forgot your password?
-        
-        </PasswordForgot>
         <AccountRegister>
         <Register onClick={toggleRegisterTab}>Don't have an account?</Register>
         </AccountRegister>
@@ -138,16 +134,11 @@ const CloseSignInPopup = styled(motion.span)`
 
 const AccountRegister = styled.div`
     text-align: center;
-    margin-top: 20px;
+    margin-top: 150px;
     text-decoration: underline;
 `
 
-const PasswordForgot = styled.span`
-    text-align: center;
-    margin-top: 120px;
-    cursor: pointer;
-    text-decoration: underline;
-`
+
 
 const GoogleButton = styled.button`
     padding: 10px;
