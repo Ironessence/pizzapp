@@ -61,6 +61,13 @@ const PizzaDetails = styled.div`
 const PizzaImage = styled.img`
     flex: 1;
     padding-top: 20px;
+    @media only screen and (max-width: 650px) {
+        width: 70%;
+        height: auto;
+        object-fit: contain;
+        align-self: center;
+                
+    }
 `
 
 const Container = styled.div`
